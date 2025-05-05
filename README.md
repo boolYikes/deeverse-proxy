@@ -31,9 +31,9 @@ docker run --rm -it \
 - -> use the app's port, no need to forward it 
 - -> set upstream server port to the app's port
 - This was a big help : [Jenkins with Nginx](https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-with-jenkins/reverse-proxy-configuration-nginx/)
-<br>
+
 ![alt text](image.png)
-<br>
+
 ![alt text](image-1.png)
-<br>
+
 *Finally...*
