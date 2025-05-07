@@ -8,10 +8,11 @@ Home server is the way to go
 
 ## TODO
 - [x] Detach reverse proxy from Jukebox and Fortpolio and run it independently
-- [ ] Execution scripts
+- [x] Execution scripts
 - [ ] Repurpose it later for K8S
 - [ ] Schedule certbot
 - [ ] Refactor nginx configs to use `include`
+- [ ] Security measures
 
 ## Log
 - Using variables in .conf prevents nginx from prematurely resolving the hostname even when the service is not up.
@@ -30,7 +31,9 @@ docker run --rm -it \
 - Uses same external network 
 - -> use the app's port, no need to forward it 
 - -> set upstream server port to the app's port
-- This was a big help : [Jenkins with Nginx](https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-with-jenkins/reverse-proxy-configuration-nginx/)
+- This was a big help : 
+- [Jenkins with Nginx](https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-with-jenkins/reverse-proxy-configuration-nginx/)
+- [RP Troubleshooting](https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-troubleshooting/)
 
 ![alt text](image.png)
 
