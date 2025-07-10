@@ -4,12 +4,13 @@ services:
     container_name: nginx
     restart: unless-stopped
     volumes:
+      - ./nginx/log:/var/log/nginx/
       - ./nginx/conf.d/deeverse.conf:/etc/nginx/conf.d/default.conf
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
       - jenkins-home:/mnt/jenkins_home
       - jenkins-temp:/mnt/jenkins_temp
-    ports:
+    ports: 
       - "80:80"
       - "443:443"
     expose:
