@@ -9,8 +9,8 @@ Home server is the way to go
 ## TODO
 - [x] Detach reverse proxy from Jukebox and Fortpolio and run it independently
 - [x] Execution scripts
+- [x] Schedule certbot (semi-automated) + init automation
 - [ ] Repurpose it later for K8S
-- [ ] Schedule certbot
 - [ ] Refactor nginx configs to use `include`
 - [ ] Security measures
 

@@ -1,0 +1,57 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    environment:
+      SERVER_NAME: ${SERVER_NAME}
+      FORTPOLIO: ${FORTPOLIO}
+      NAVIDROME: ${NAVIDROME}
+      JENKINS: ${JENKINS}
+    volumes:
+      - ./nginx/log:/var/log/nginx/
+      # envsubst will parse envs this way
+      - ./nginx/conf.d/deeverse-default.conf:/etc/nginx/templates/default.conf.template
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+      - jenkins-home:/mnt/jenkins_home
+      - jenkins-temp:/mnt/jenkins_temp
+    ports: 
+      - "80:80"
+      - "443:443"
+    expose:
+      - "80"
+      - "443"
+    networks:
+      - deeverse_proxy
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/logs:/var/log/letsencrypt
+      - ./certbot/conf:/etc/letsencrypt
+    entrypoint: >
+      /bin/sh -c '
+        DONE=/var/www/certbot/.result;
+        rm -f "$$DONE";
+        certbot renew --webroot -w /var/www/certbot;
+        RC=$$?;
+        date -u +%FT%TZ > "$$DONE";
+        exit $$RC
+      '
+    networks:
+      - deeverse_proxy
+    depends_on:
+      - nginx
+
+volumes:
+  jenkins-home:
+    external: true
+  jenkins-temp:
+    external: true
+
+networks:
+  deeverse_proxy:
+    external: true
